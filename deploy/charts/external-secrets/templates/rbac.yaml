@@ -19,7 +19,7 @@ rules:
     - "secretstores"
     - "externalsecrets"
     - "pushsecrets"
-    {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
+    {{- if not (and .Values.scopedNamespace .Values.scopedRBAC) }}
     - "clustersecretstores"
     - "clusterexternalsecrets"
     {{- end }}
@@ -39,7 +39,7 @@ rules:
     - "pushsecrets"
     - "pushsecrets/status"
     - "pushsecrets/finalizers"
-    {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
+    {{- if not (and .Values.scopedNamespace .Values.scopedRBAC) }}
     - "clustersecretstores"
     - "clustersecretstores/status"
     - "clustersecretstores/finalizers"
@@ -139,7 +139,7 @@ rules:
       - "externalsecrets"
       - "secretstores"
       - "pushsecrets"
-      {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
+      {{- if not (and .Values.scopedNamespace .Values.scopedRBAC) }}
       - "clustersecretstores"
       {{- end }}
     verbs:
@@ -184,7 +184,7 @@ rules:
       - "externalsecrets"
       - "secretstores"
       - "pushsecrets"
-      {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
+      {{- if not (and .Values.scopedNamespace .Values.scopedRBAC) }}
       - "clustersecretstores"
       {{- end }}
     verbs:
