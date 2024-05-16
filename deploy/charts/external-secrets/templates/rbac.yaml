@@ -17,10 +17,12 @@ rules:
     - "external-secrets.io"
     resources:
     - "secretstores"
-    - "clustersecretstores"
     - "externalsecrets"
-    - "clusterexternalsecrets"
     - "pushsecrets"
+    {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
+    - "clustersecretstores"
+    - "clusterexternalsecrets"
+    {{- end }}
     verbs:
     - "get"
     - "list"
@@ -34,15 +36,17 @@ rules:
     - "secretstores"
     - "secretstores/status"
     - "secretstores/finalizers"
+    - "pushsecrets"
+    - "pushsecrets/status"
+    - "pushsecrets/finalizers"
+    {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
     - "clustersecretstores"
     - "clustersecretstores/status"
     - "clustersecretstores/finalizers"
     - "clusterexternalsecrets"
     - "clusterexternalsecrets/status"
     - "clusterexternalsecrets/finalizers"
-    - "pushsecrets"
-    - "pushsecrets/status"
-    - "pushsecrets/finalizers"
+    {{- end }}
     verbs:
     - "update"
     - "patch"
@@ -134,8 +138,10 @@ rules:
     resources:
       - "externalsecrets"
       - "secretstores"
-      - "clustersecretstores"
       - "pushsecrets"
+      {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
+      - "clustersecretstores"
+      {{- end }}
     verbs:
       - "get"
       - "watch"
@@ -177,8 +183,10 @@ rules:
     resources:
       - "externalsecrets"
       - "secretstores"
-      - "clustersecretstores"
       - "pushsecrets"
+      {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
+      - "clustersecretstores"
+      {{- end }}
     verbs:
       - "create"
       - "delete"
